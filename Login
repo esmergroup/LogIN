@@ -1,0 +1,120 @@
+package java2enterprise;
+
+import java.awt.EventQueue;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+import javax.swing.JButton;
+import java.awt.Color;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.Arrays;
+import java.awt.Toolkit;
+
+public class Login extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField tfLoginID;
+	private JPasswordField passwordField;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					Login frame = new Login();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public Login() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\Java2Enterprise\\Downloads\\ourLogo.png"));
+		setResizable(false);
+		setBackground(Color.BLACK);
+		setTitle("Login");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 365, 185);
+		contentPane = new JPanel();
+		contentPane.setBackground(Color.ORANGE);
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		
+		JLabel lblLoginID = new JLabel("Benutzername:");
+		lblLoginID.setBounds(10, 10, 93, 28);
+		contentPane.add(lblLoginID);
+		
+		tfLoginID = new JTextField();
+		tfLoginID.setBackground(Color.CYAN);
+		tfLoginID.setBounds(135, 10, 210, 28);
+		contentPane.add(tfLoginID);
+		tfLoginID.setColumns(10);
+		
+		passwordField = new JPasswordField();
+		passwordField.setBackground(Color.CYAN);
+		passwordField.setBounds(135, 63, 210, 28);
+		contentPane.add(passwordField);
+		
+		JLabel lblPasswort = new JLabel("Passwort:");
+		lblPasswort.setBounds(10, 60, 93, 31);
+		contentPane.add(lblPasswort);
+		
+		JButton btnAnmelden = new JButton("Anmelden");
+		btnAnmelden.setBackground(Color.RED);
+		btnAnmelden.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int a = 0;
+				while(a >= 0 && a < 3) {
+					a++;
+					String loginId = tfLoginID.getText();
+					char[] passwort = passwordField.getPassword();
+					char[] correctPass = new char[] {'A','d','m','i','n','6','1'};
+					
+					if(loginId.equals("Admin")) {
+						if(Arrays.equals(passwort, correctPass)){
+							JOptionPane.showMessageDialog(null, "Herzlich Willkommen");
+							break;
+						}
+						else{
+							JOptionPane.showMessageDialog(null, "Falsches Passwort");
+							a++;
+							break;
+						}
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Benutzername oder Passwort Falsch!");
+					}
+				}
+				if(a == 3) {
+					JOptionPane.showMessageDialog(null, "Anmeldung Verweigert!!!");
+					System.exit(5);
+				}
+			}
+		});
+		btnAnmelden.setBounds(10, 114, 150, 29);
+		contentPane.add(btnAnmelden);
+		
+		JButton btnAbbrechen = new JButton("Abbrechen");
+		btnAbbrechen.setBackground(Color.RED);
+		btnAbbrechen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
+			}
+		});
+		btnAbbrechen.setBounds(195, 114, 150, 29);
+		contentPane.add(btnAbbrechen);
+	}
+}
